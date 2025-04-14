@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+</head>
+<body>
+    <h1>Student Profile</h1>
+
+    <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+
+    <a href="{% url 'edit_profile' %}">✏️ Edit Profile</a> | 
+    <a href="{% url 'logout' %}">🚪 Logout</a>
+
+    <h2>Enrolled Courses</h2>
+    {% if enrolled_courses %}
+        <ul>
+            {% for enrollment in enrolled_courses %}
+                <li>{{ enrollment.course.name }} ({{ enrollment.course.code }})</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No enrolled courses.</p>
+    {% endif %}
+
+    <a href="{% url 'dashboard' %}">⬅ Back to Dashboard</a>
+</body>
+</html>

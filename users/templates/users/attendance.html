@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Attendance Record</h2>
+    <table class="table table-hover text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>Course</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in attendance_data %}
+            <tr>
+                <td>{{ record.course }}</td>
+                <td>{{ record.date }}</td>
+                <td>
+                    {% if record.status == "Present" %}
+                        <span class="badge bg-success">{{ record.status }}</span>
+                    {% else %}
+                        <span class="badge bg-danger">{{ record.status }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

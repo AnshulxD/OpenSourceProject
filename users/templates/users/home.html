@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College CRM - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --sidebar-width: 250px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f7fa;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--dark-color);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar-header h3 {
+            margin-left: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .sidebar-menu li {
+            list-style: none;
+            padding: 10px 20px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu li:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-menu li.active {
+            background: var(--primary-color);
+        }
+        
+        .sidebar-menu li a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar-menu li a i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .header h2 {
+            color: var(--dark-color);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        /* Quick Access Cards */
+        .quick-access {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .quick-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .quick-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .quick-card i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .quick-card h3 {
+            font-size: 1rem;
+            color: var(--dark-color);
+        }
+        
+        /* Dashboard Sections */
+        .dashboard-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section-header h3 {
+            color: var(--dark-color);
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary-color);
+        }
+        
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+        }
+        
+        /* Recent Activity */
+        .activity-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary-color);
+        }
+        
+        .activity-content h4 {
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .activity-content p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .activity-time {
+            color: #bdc3c7;
+            font-size: 0.8rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+                overflow: hidden;
+            }
+            
+            .sidebar-header h3, .sidebar-menu li a span {
+                display: none;
+            }
+            
+            .sidebar-menu li a {
+                justify-content: center;
+            }
+            
+            .sidebar-menu li a i {
+                margin-right: 0;
+                font-size: 1.3rem;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+                width: calc(100% - 80px);
+            }
+            
+            .quick-access {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-graduation-cap fa-2x"></i>
+            <h3>College CRM</h3>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active">
+                <a href="home.html"><i class="fas fa-home"></i> <span>Home</span></a>
+            </li>
+            <li>
+                <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
+            </li>
+            <li>
+                <a href="student_dashboard.html"><i class="fas fa-user-graduate"></i> <span>Student Dashboard</span></a>
+            </li>
+            <li>
+                <a href="faculty_dashboard.html"><i class="fas fa-chalkboard-teacher"></i> <span>Faculty Dashboard</span></a>
+            </li>
+            <li>
+                <a href="course_list.html"><i class="fas fa-book"></i> <span>Courses</span></a>
+            </li>
+            <li>
+                <a href="manage_enrollments.html"><i class="fas fa-clipboard-list"></i> <span>Enrollments</span></a>
+            </li>
+            <li>
+                <a href="attendance.html"><i class="fas fa-clipboard-check"></i> <span>Attendance</span></a>
+            </li>
+            <li>
+                <a href="profile.html"><i class="fas fa-user-cog"></i> <span>Profile</span></a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h2>College CRM Home</h2>
+            <div class="user-info">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                <span>Admin User</span>
+            </div>
+        </div>
+
+        <!-- Quick Access Cards -->
+        <div class="quick-access">
+            <a href="dashboard.html" class="quick-card">
+                <i class="fas fa-tachometer-alt"></i>
+                <h3>Main Dashboard</h3>
+            </a>
+            <a href="student_dashboard.html" class="quick-card">
+                <i class="fas fa-user-graduate"></i>
+                <h3>Student Dashboard</h3>
+            </a>
+            <a href="faculty_dashboard.html" class="quick-card">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <h3>Faculty Dashboard</h3>
+            </a>
+            <a href="course_list.html" class="quick-card">
+                <i class="fas fa-book"></i>
+                <h3>Course List</h3>
+            </a>
+            <a href="manage_courses.html" class="quick-card">
+                <i class="fas fa-edit"></i>
+                <h3>Manage Courses</h3>
+            </a>
+            <a href="manage_enrollments.html" class="quick-card">
+                <i class="fas fa-clipboard-list"></i>
+                <h3>Manage Enrollments</h3>
+            </a>
+            <a href="student_list.html" class="quick-card">
+                <i class="fas fa-users"></i>
+                <h3>Student List</h3>
+            </a>
+            <a href="attendance.html" class="quick-card">
+                <i class="fas fa-clipboard-check"></i>
+                <h3>Attendance</h3>
+            </a>
+        </div>
+
+        <!-- Recent Activity Section -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h3>Recent Activity</h3>
+                <a href="#" class="btn btn-primary btn-sm">View All</a>
+            </div>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h4>New Student Registrations</h4>
+                        <p>15 new students registered for the upcoming semester</p>
+                    </div>
+                    <div class="activity-time">2 hours ago</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h4>Course Updated</h4>
+                        <p>Computer Science 101 syllabus has been updated</p>
+                    </div>
+                    <div class="activity-time">5 hours ago</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h4>New Faculty Member</h4>
+                        <p>Dr. Smith joined the Mathematics department</p>
+                    </div>
+                    <div class="activity-time">1 day ago</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links Section -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h3>Quick Links</h3>
+            </div>
+            <div class="quick-access">
+                <a href="profile.html" class="quick-card">
+                    <i class="fas fa-user"></i>
+                    <h3>My Profile</h3>
+                </a>
+                <a href="edit_profile.html" class="quick-card">
+                    <i class="fas fa-user-edit"></i>
+                    <h3>Edit Profile</h3>
+                </a>
+                <a href="my_courses.html" class="quick-card">
+                    <i class="fas fa-book-open"></i>
+                    <h3>My Courses</h3>
+                </a>
+                <a href="course_summary.html" class="quick-card">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Course Summary</h3>
+                </a>
+                <a href="confirm_unenroll.html" class="quick-card">
+                    <i class="fas fa-user-minus"></i>
+                    <h3>Unenroll Student</h3>
+                </a>
+                <a href="register.html" class="quick-card">
+                    <i class="fas fa-user-plus"></i>
+                    <h3>Register Student</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple script for sidebar menu active state
+        document.querySelectorAll('.sidebar-menu li').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.sidebar-menu li').forEach(i => {
+                    i.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

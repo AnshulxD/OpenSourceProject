@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Profile</title>
+</head>
+<body>
+    <h1>Edit Profile</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label>First Name:</label>
+        <input type="text" name="first_name" value="{{ user.first_name }}" required><br>
+
+        <label>Last Name:</label>
+        <input type="text" name="last_name" value="{{ user.last_name }}" required><br>
+
+        <label>Email:</label>
+        <input type="email" name="email" value="{{ user.email }}" required><br>
+
+        <label>New Password (leave blank to keep current password):</label>
+        <input type="password" name="new_password"><br>
+
+        <button type="submit">Update Profile</button>
+    </form>
+
+    <a href="{% url 'profile' %}">Back to Profile</a>
+</body>
+</html>

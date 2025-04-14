@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Courses</title>
+</head>
+<body>
+    <h1>Available Courses</h1>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if courses %}
+        <ul>
+            {% for course in courses %}
+                <li>
+                    <strong>{{ course.name }} ({{ course.code }})</strong>
+                    <form action="{% url 'enroll_in_course' course.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Enroll</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No courses available.</p>
+    {% endif %}
+
+    <a href="{% url 'dashboard' %}">⬅ Back to Dashboard</a>
+</body>
+</html>

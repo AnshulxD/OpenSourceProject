@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College CRM</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 20px 0;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-header h2 {
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+        }
+        
+        .nav-item {
+            padding: 10px 20px;
+            margin: 5px 0;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-item.active {
+            background-color: var(--primary-color);
+            border-left: 4px solid white;
+        }
+        
+        .nav-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: var(--secondary-color);
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        /* Cards */
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .card-header h2 {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+        }
+        
+        /* Courses */
+        .courses-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .course-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            transition: transform 0.3s;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .course-code {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .course-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .course-department {
+            display: inline-block;
+            background-color: var(--light-color);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .enroll-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .enroll-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #777;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+            
+            .courses-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>College CRM</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li class="nav-item active">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </li>
+                <li class="nav-item">
+                    <i class="fas fa-book"></i>
+                    <span>My Courses</span>
+                </li>
+                <li class="nav-item">
+                    <i class="fas fa-search"></i>
+                    <span>Available Courses</span>
+                </li>
+                <li class="nav-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Attendance</span>
+                </li>
+                <li class="nav-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1>Available Courses</h1>
+                <div class="user-profile">
+                    <img src="https://via.placeholder.com/40" alt="User Profile">
+                    <span>Student Name</span>
+                </div>
+            </div>
+            
+            <!-- My Enrolled Courses -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>My Enrolled Courses</h2>
+                </div>
+                <div class="empty-state">
+                    <i class="fas fa-book-open"></i>
+                    <h3>No Enrolled Courses</h3>
+                    <p>You are not currently enrolled in any courses.</p>
+                </div>
+            </div>
+            
+            <!-- Available Courses -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Available Courses</h2>
+                </div>
+                <div class="courses-container">
+                    <!-- CS Courses -->
+                    <div class="course-card">
+                        <div class="course-department">Computer Science</div>
+                        <div class="course-code">DV013</div>
+                        <div class="course-title">Data Visualization</div>
+                        <button class="enroll-btn">Enroll Now</button>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-department">Computer Science</div>
+                        <div class="course-code">CS101</div>
+                        <div class="course-title">Email Systems</div>
+                        <button class="enroll-btn">Enroll Now</button>
+                    </div>
+                    
+                    <!-- B-Tech Courses -->
+                    <div class="course-card">
+                        <div class="course-department">B-Tech</div>
+                        <div class="course-code">B13</div>
+                        <div class="course-title">Advanced Engineering</div>
+                        <button class="enroll-btn">Enroll Now</button>
+                    </div>
+                    
+                    <!-- Python Courses -->
+                    <div class="course-card">
+                        <div class="course-department">Programming</div>
+                        <div class="course-code">PY101</div>
+                        <div class="course-title">Python Fundamentals</div>
+                        <button class="enroll-btn">Enroll Now</button>
+                    </div>
+                    
+                    <!-- Other Courses -->
+                    <div class="course-card">
+                        <div class="course-department">General</div>
+                        <div class="course-code">S101</div>
+                        <div class="course-title">Communication Skills</div>
+                        <button class="enroll-btn">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

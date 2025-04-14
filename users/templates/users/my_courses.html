@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Courses</title>
+</head>
+<body>
+    <h1>My Enrolled Courses</h1>
+
+    <!-- Navigation Links -->
+    <nav>
+        <a href="{% url 'dashboard' %}">Home</a> |
+        <a href="{% url 'my_courses' %}">My Courses</a> |
+        <a href="{% url 'attendance' %}">Attendance</a> |  
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Enrolled Courses List -->
+    {% if enrolled_courses %}
+        <ul>
+            {% for enrollment in enrolled_courses %}
+                <li>
+                    {{ enrollment.course.name }} ({{ enrollment.course.code }})
+                    <form action="{% url 'unenroll_course' enrollment.course.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">🚫 Unenroll</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You are not enrolled in any courses yet.</p>
+    {% endif %}
+
+</body>
+</html>

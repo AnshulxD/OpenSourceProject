@@ -1,0 +1,13 @@
+<!-- users/confirm_unenroll.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Unenroll from {{ course.name }}</h2>
+    <p>Are you sure you want to unenroll from this course?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Unenroll</button>
+        <a href="{% url 'my_courses' %}">Cancel</a>
+    </form>
+{% endblock %}

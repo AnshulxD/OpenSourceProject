@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Manage Enrollments</h2>
+    {% for course in faculty_courses %}
+        <h4>{{ course.name }}</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for enrollment in enrollments %}
+                    {% if enrollment.course == course %}
+                        <tr>
+                            <td>{{ enrollment.student.username }}</td>
+                            <td>{{ enrollment.student.email }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% empty %}
+        <p>No enrollments yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
